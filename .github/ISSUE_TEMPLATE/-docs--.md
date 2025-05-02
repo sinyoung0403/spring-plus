@@ -1,5 +1,5 @@
 ---
-name: "[DOCS] "
+name: "[Docs] "
 about: README, API 명세, 주석 등 문서 관련 작업
 title: "[Docs] "
 labels: documentation
