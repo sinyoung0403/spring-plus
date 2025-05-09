@@ -7,7 +7,9 @@ import org.example.expert.domain.common.exception.InvalidRequestException;
 import org.example.expert.domain.todo.dto.request.TodoSaveRequest;
 import org.example.expert.domain.todo.dto.response.TodoResponse;
 import org.example.expert.domain.todo.dto.response.TodoSaveResponse;
+import org.example.expert.domain.todo.dto.response.TodoSearchResponse;
 import org.example.expert.domain.todo.entity.Todo;
+import org.example.expert.domain.todo.repository.TodoCustomRepository;
 import org.example.expert.domain.todo.repository.TodoRepository;
 import org.example.expert.domain.user.dto.response.UserResponse;
 import org.example.expert.domain.user.entity.User;
@@ -25,6 +27,7 @@ import java.time.LocalDateTime;
 public class TodoService {
 
     private final TodoRepository todoRepository;
+    private final TodoCustomRepository todoCustomRepository;
     private final WeatherClient weatherClient;
 
     @Transactional
@@ -54,9 +57,8 @@ public class TodoService {
     public Page<TodoResponse> getTodos(int page, int size, String weather, LocalDate startDate, LocalDate endDate) {
         // 1. 시간을 알맞게 형태에 맞추기
         LocalDateTime startDateTime = startDate.atStartOfDay();
-        System.out.println("StartDate:  " + startDateTime);
         LocalDateTime endDateTime = endDate.atTime(23, 59, 59, 999_999_999);
-        System.out.println("EndDate:  " + endDateTime);
+
         // 2. Pageable 설정
         Pageable pageable = PageRequest.of(page - 1, size);
 
@@ -78,7 +80,7 @@ public class TodoService {
 
     @Transactional(readOnly = true)
     public TodoResponse getTodo(long todoId) {
-        Todo todo = todoRepository.findByIdWithUser(todoId)
+        Todo todo = todoCustomRepository.findByIdWithUser(todoId)
                 .orElseThrow(() -> new InvalidRequestException("Todo not found"));
 
         User user = todo.getUser();
@@ -92,5 +94,17 @@ public class TodoService {
                 todo.getCreatedAt(),
                 todo.getModifiedAt()
         );
+    }
+
+    public Page<TodoSearchResponse> searchTodos(int page, int size, String title, LocalDate startDate, LocalDate endDate, String nickname) {
+        // 1. 시간을 알맞게 형태에 맞추기
+        LocalDateTime startDateTime = startDate.atStartOfDay();
+        LocalDateTime endDateTime = endDate.atTime(23, 59, 59, 999_999_999);
+
+        // 2. Pageable 객체 만들기
+        Pageable pageable = PageRequest.of(page - 1, size);
+
+        // 3. 조회하기
+        return todoCustomRepository.searchTodos(title, startDateTime, endDateTime, nickname, pageable);
     }
 }
