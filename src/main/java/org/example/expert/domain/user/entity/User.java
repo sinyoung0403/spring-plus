@@ -10,7 +10,9 @@ import org.example.expert.domain.user.enums.UserRole;
 @Getter
 @Entity
 @NoArgsConstructor
-@Table(name = "users")
+@Table(name = "users", indexes = {
+        @Index(name = "idx_nickname", columnList = "nickname")
+})
 public class User extends Timestamped {
 
     @Id
@@ -20,6 +22,7 @@ public class User extends Timestamped {
     private String email;
     private String password;
     // User Nickname 추가
+    @Column(name = "nickname")
     private String nickname;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;

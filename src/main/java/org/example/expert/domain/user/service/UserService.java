@@ -6,9 +6,13 @@ import org.example.expert.domain.common.exception.InvalidRequestException;
 import org.example.expert.domain.user.dto.request.UserChangePasswordRequest;
 import org.example.expert.domain.user.dto.response.UserResponse;
 import org.example.expert.domain.user.entity.User;
+import org.example.expert.domain.user.repository.UserCustomRepository;
 import org.example.expert.domain.user.repository.UserRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserCustomRepository userCustomRepository;
     private final PasswordEncoder passwordEncoder;
 
     public UserResponse getUser(long userId) {
@@ -47,5 +52,24 @@ public class UserService {
                 !userChangePasswordRequest.getNewPassword().matches(".*[A-Z].*")) {
             throw new InvalidRequestException("새 비밀번호는 8자 이상이어야 하고, 숫자와 대문자를 포함해야 합니다.");
         }
+    }
+
+    public List<UserResponse> searchUserWithJPQL(String nickName) {
+        List<User> findUser = userRepository.findByNickname(nickName);
+        List<UserResponse> list = findUser.stream().map(user -> UserResponse.from(user)).toList();
+        return list;
+    }
+
+    public List<UserResponse> searchUserWithQueryDSL(String nickName) {
+        return userCustomRepository.findByNickNameWith(nickName);
+    }
+
+    public List<UserResponse> searchUserWithDto(String nickName) {
+        return userRepository.findByNicknameWithDto(nickName);
+    }
+
+    @Cacheable(value = "searchNickname", cacheManager = "redisCacheManager")
+    public List<UserResponse> searchUserWithRedis(String nickName) {
+        return userRepository.findByNicknameWithDto(nickName);
     }
 }
