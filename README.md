@@ -12,7 +12,7 @@
 |       Cache 최초 검색       | 624 ms |  Redis Cache 를 이용해 최초 검색 했다.  |
 |       Cache 2회 검색       | 33 ms  |          Redis Cache 를 이용해 최초 검색 했다.   |
 
-- 인덱싱 전에는 최초 검색 시에는 JPQL + DTO 가 제일 빨랐다.
+- 최초 검색 시 JPQL + DTO 가 제일 빨랐다.
 - Cache 가 두 번 검색 될 시에는 가장 짧았다.
 
 ### 2. 인덱스 적용 후
@@ -25,7 +25,7 @@
 |       Cache 최초 검색       | 430 ms |  Redis Cache 를 이용해 최초 검색 했다.  |
 |       Cache 2회 검색       | 29 ms  |          Redis Cache 를 이용해 최초 검색 했다.   |
 
-- 인덱싱 후에는 최초 검색 시에는 JPQL + DTO 가 성능이 압도적으로 좋았다.
+- 최초 검색 시에는 JPQL + DTO 가 성능이 압도적으로 좋았다.
 - Cache 가 두 번 검색 되어도 JPQL + DTO 가 짧은 걸 알 수 있다.
 
 => 단순 조회시에는 인덱스 적용 + JPQL + DTO 가 좋다는 걸 알았다.
