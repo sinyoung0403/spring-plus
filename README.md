@@ -6,10 +6,15 @@
 
 - 로컬 컴퓨터에서 적용 성공
 
+![RDS 연결 성공](https://github.com/user-attachments/assets/41a80994-b582-4b7f-a1f6-d279583ffc8e)
 
 ### 2. S3 적용
 
 - S3 적용 화면
+
+![이미지 저장 결과 1](https://github.com/user-attachments/assets/90bd5d69-a9c6-4591-bdf3-320cdbe11463)
+
+![이미지 저장 결과 2](https://github.com/user-attachments/assets/abdbf842-3c11-4dbf-ac84-3980e17fc079)
 
 ## 검색 속도 개선
 
