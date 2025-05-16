@@ -1,16 +1,37 @@
 # SPRING PLUS
 
-## RDS, S3 적용
+## EC2, RDS, S3 적용
 
-### 1. RDS 적용
+### 1. EC2 적용
+
+#### 1. 설정
+
+![image](https://github.com/user-attachments/assets/13dfb66e-29f6-4aa2-acd3-fd56071d485e)
+
+탄력적 IP 설정 완료
+
+![image](https://github.com/user-attachments/assets/e59224dd-0252-4dee-a65f-20fe76248b33)
+
+
+#### 2. 적용 화면
+
+![Ec2 적용성공](https://github.com/user-attachments/assets/fb4ae5f1-c3a2-4cb8-bb92-45f5aec8330b)
+
+### 2. RDS 적용
+
+#### 1. 설정
+
+![image](https://github.com/user-attachments/assets/fac8109e-21d9-4887-a9b4-dbe4839f5cab)
+
+#### 2. 적용 화면
 
 - 로컬 컴퓨터에서 적용 성공
 
 ![RDS 연결 성공](https://github.com/user-attachments/assets/41a80994-b582-4b7f-a1f6-d279583ffc8e)
 
-### 2. S3 적용
+### 3. S3 적용
 
-- S3 적용 화면
+#### 1. 적용 화면
 
 ![이미지 저장 결과 1](https://github.com/user-attachments/assets/90bd5d69-a9c6-4591-bdf3-320cdbe11463)
 
