@@ -26,9 +26,10 @@ public class SecurityConfig {
                 // 경로 설정
                 .authorizeHttpRequests(
                         c -> c
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+                                .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/aws/**").permitAll()
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .anyRequest().authenticated()
                 )
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
